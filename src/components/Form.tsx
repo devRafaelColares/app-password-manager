@@ -1,4 +1,8 @@
-function Form() {
+type HandleFormProps = {
+  handleCancelForm: () => void;
+};
+
+function Form({ handleCancelForm }: HandleFormProps) {
   return (
     <form action="">
       <label htmlFor="nome-do-serviço">
@@ -34,7 +38,7 @@ function Form() {
         />
       </label>
       <button>Cadastrar</button>
-      <button>Cancelar</button>
+      <button onClick={ handleCancelForm }>Cancelar</button>
     </form>
   );
 }
