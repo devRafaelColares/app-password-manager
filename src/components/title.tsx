@@ -4,7 +4,7 @@ type TitleProps = {
 
 function Title({ title } : TitleProps) {
   return (
-    <h1 className="title-req-1">{title}</h1>
+    <h1>{title}</h1>
   );
 }
 
