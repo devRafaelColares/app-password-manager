@@ -3,11 +3,6 @@ type PasswordValidationProps = {
 };
 
 function PasswordValidation({ password }: PasswordValidationProps) {
-  const eightCharacters = 'Possuir 8 ou mais caracteres';
-  const sixteenCharacters = 'Possuir até 16 caracteres';
-  const lettersAndNumbers = 'Possuir letras e números';
-  const specialsCharacters = 'Possuir algum caractere especial';
-
   const isEightCharactersValid = password.length >= 8;
   const isSixteenCharactersValid = password.length <= 16;
   const isLettersAndNumbersValid = /[a-zA-Z]/.test(password) && /\d/.test(password);
@@ -19,28 +14,28 @@ function PasswordValidation({ password }: PasswordValidationProps) {
   return (
     <div>
       <p className={ isEightCharactersValid ? validPasswordCheck : invalidPasswordCheck }>
-        {eightCharacters}
+        Possuir 8 ou mais caracteres
       </p>
 
       <p
         className={ isSixteenCharactersValid
           ? validPasswordCheck : invalidPasswordCheck }
       >
-        {sixteenCharacters}
+        Possuir até 16 caracteres
       </p>
 
       <p
         className={ isLettersAndNumbersValid
           ? validPasswordCheck : invalidPasswordCheck }
       >
-        {lettersAndNumbers}
+        Possuir letras e números
       </p>
 
       <p
         className={ isSpecialsCharactersValid
           ? validPasswordCheck : invalidPasswordCheck }
       >
-        {specialsCharacters}
+        Possuir algum caractere especial
       </p>
     </div>
   );
