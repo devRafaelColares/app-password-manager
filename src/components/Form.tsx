@@ -3,9 +3,17 @@ import PasswordValidation from './PasswordValidation';
 
 type HandleFormProps = {
   handleCancelForm: () => void;
+  handleServiceRegistration: (serviceInfo: ServiceInfo) => void;
 };
 
-function Form({ handleCancelForm }: HandleFormProps) {
+type ServiceInfo = {
+  service: string;
+  login: string;
+  password: string;
+  url: string;
+};
+
+function Form({ handleCancelForm, handleServiceRegistration }: HandleFormProps) {
   const [serviceName, setServiceName] = useState('');
   const [loginName, setLoginName] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
@@ -20,22 +28,40 @@ function Form({ handleCancelForm }: HandleFormProps) {
     setIsFormValid(isServiceNameValid && isLoginNameValid && isPasswordValid);
   };
 
-  const handleServiceName = (e: { target: { value: React.SetStateAction<string> }; }) => {
+  const handleServiceName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setServiceName(e.target.value);
   };
 
-  const handleLoginName = (e: { target: { value: React.SetStateAction<string> }; }) => {
+  const handleLoginName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginName(e.target.value);
   };
 
-  const handlePasswordChange = (e
-  : { target: { value: React.SetStateAction<string> }; }) => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordValue(e.target.value);
     validateForm();
   };
 
-  const handleUrlChange = (e: { target: { value: React.SetStateAction<string> }; }) => {
+  const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrlValue(e.target.value);
+  };
+
+  const handleRegister = () => {
+    if (isFormValid) {
+      const serviceInfo: ServiceInfo = {
+        service: serviceName,
+        login: loginName,
+        password: passwordValue,
+        url: urlValue,
+      };
+      handleServiceRegistration(serviceInfo);
+
+      setServiceName('');
+      setLoginName('');
+      setPasswordValue('');
+      setUrlValue('');
+      setIsFormValid(false);
+      handleCancelForm();
+    }
   };
 
   return (
@@ -68,8 +94,6 @@ function Form({ handleCancelForm }: HandleFormProps) {
       />
 
       <PasswordValidation password={ passwordValue } />
-      {' '}
-      { }
 
       <label htmlFor="url">URL</label>
       <input
@@ -80,7 +104,9 @@ function Form({ handleCancelForm }: HandleFormProps) {
         onChange={ handleUrlChange }
       />
 
-      <button disabled={ !isFormValid }>Cadastrar</button>
+      <button disabled={ !isFormValid } onClick={ handleRegister }>
+        Cadastrar
+      </button>
       <button onClick={ handleCancelForm }>Cancelar</button>
     </form>
   );
