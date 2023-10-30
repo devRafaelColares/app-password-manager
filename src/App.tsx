@@ -29,6 +29,12 @@ function App() {
     setServices([...services, serviceInfo]);
   };
 
+  const handleRemoveService = (index: number) => {
+    const updatedServices = [...services];
+    updatedServices.splice(index, 1);
+    setServices(updatedServices);
+  };
+
   return (
     <div>
       <Title title={ title } />
@@ -37,6 +43,8 @@ function App() {
           <Form
             handleCancelForm={ cancelForm }
             handleServiceRegistration={ handleServiceRegistration }
+            services={ services }
+            onRemoveService={ handleRemoveService }
           />
         ) : (
           <NewPassword handleForm={ handleForm } />
@@ -61,6 +69,12 @@ function App() {
                 {' '}
                 {service.password}
               </p>
+              <button
+                data-testid="remove-btn"
+                onClick={ () => handleRemoveService(index) }
+              >
+                Remover
+              </button>
             </li>
           ))}
         </ul>

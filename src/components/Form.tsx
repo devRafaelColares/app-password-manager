@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import PasswordValidation from './PasswordValidation';
 
-type HandleFormProps = {
+type FormProps = {
   handleCancelForm: () => void;
   handleServiceRegistration: (serviceInfo: ServiceInfo) => void;
+  services?: ServiceInfo[];
+  onRemoveService?: (index: number) => void;
 };
 
 type ServiceInfo = {
@@ -13,7 +15,12 @@ type ServiceInfo = {
   url: string;
 };
 
-function Form({ handleCancelForm, handleServiceRegistration }: HandleFormProps) {
+function Form({
+  handleCancelForm,
+  handleServiceRegistration,
+  services = [],
+  onRemoveService = () => {},
+}: FormProps) {
   const [serviceName, setServiceName] = useState('');
   const [loginName, setLoginName] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
@@ -108,6 +115,22 @@ function Form({ handleCancelForm, handleServiceRegistration }: HandleFormProps) 
         Cadastrar
       </button>
       <button onClick={ handleCancelForm }>Cancelar</button>
+
+      {services.length > 0 && (
+        <ul>
+          {services.map((service, index) => (
+            <li key={ index }>
+              {service.service}
+              <button
+                data-testid="remove-btn"
+                onClick={ () => onRemoveService(index) }
+              >
+                Remover
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </form>
   );
 }
