@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './App.css';
 import Title from './components/Title';
 import Form from './components/Form';
 import NewPassword from './components/NewPassword';
+import CheckPassword from './components/CheckPassword';
 
 type ServiceInfo = {
   service: string;
@@ -14,6 +14,7 @@ type ServiceInfo = {
 function App() {
   const [seeForm, setSeeForm] = useState(false);
   const [services, setServices] = useState<ServiceInfo[]>([]);
+  const [checked, setChecked] = useState(false);
 
   const handleForm = () => {
     setSeeForm(!seeForm);
@@ -39,12 +40,14 @@ function App() {
     <div>
       <Title title={ title } />
       <div>
+        <CheckPassword onTogglePasswordVisibility={ setChecked } />
         {seeForm ? (
           <Form
             handleCancelForm={ cancelForm }
             handleServiceRegistration={ handleServiceRegistration }
             services={ services }
             onRemoveService={ handleRemoveService }
+            isPasswordVisible={ !checked }
           />
         ) : (
           <NewPassword handleForm={ handleForm } />
@@ -67,7 +70,7 @@ function App() {
               <p>
                 Senha:
                 {' '}
-                {service.password}
+                {checked ? '******' : service.password}
               </p>
               <button
                 data-testid="remove-btn"

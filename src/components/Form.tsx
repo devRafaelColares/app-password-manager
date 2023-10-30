@@ -6,6 +6,7 @@ type FormProps = {
   handleServiceRegistration: (serviceInfo: ServiceInfo) => void;
   services?: ServiceInfo[];
   onRemoveService?: (index: number) => void;
+  isPasswordVisible?: boolean;
 };
 
 type ServiceInfo = {
@@ -20,6 +21,7 @@ function Form({
   handleServiceRegistration,
   services = [],
   onRemoveService = () => {},
+  isPasswordVisible = false,
 }: FormProps) {
   const [serviceName, setServiceName] = useState('');
   const [loginName, setLoginName] = useState('');
