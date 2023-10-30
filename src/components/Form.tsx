@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PasswordValidation from './PasswordValidation';
 
 type HandleFormProps = {
   handleCancelForm: () => void;
@@ -19,26 +20,21 @@ function Form({ handleCancelForm }: HandleFormProps) {
     setIsFormValid(isServiceNameValid && isLoginNameValid && isPasswordValid);
   };
 
-  const handleServiceName = (e
-  : { target: { value: React.SetStateAction<string>; }; }) => {
+  const handleServiceName = (e: { target: { value: React.SetStateAction<string> }; }) => {
     setServiceName(e.target.value);
-    validateForm();
   };
 
-  const handleLoginName = (e
-  : { target: { value: React.SetStateAction<string>; }; }) => {
+  const handleLoginName = (e: { target: { value: React.SetStateAction<string> }; }) => {
     setLoginName(e.target.value);
-    validateForm();
   };
 
   const handlePasswordChange = (e
-  : { target: { value: React.SetStateAction<string>; }; }) => {
+  : { target: { value: React.SetStateAction<string> }; }) => {
     setPasswordValue(e.target.value);
     validateForm();
   };
 
-  const handleUrlChange = (e
-  : { target: { value: React.SetStateAction<string>; }; }) => {
+  const handleUrlChange = (e: { target: { value: React.SetStateAction<string> }; }) => {
     setUrlValue(e.target.value);
   };
 
@@ -70,6 +66,10 @@ function Form({ handleCancelForm }: HandleFormProps) {
         value={ passwordValue }
         onChange={ handlePasswordChange }
       />
+
+      <PasswordValidation password={ passwordValue } />
+      {' '}
+      { }
 
       <label htmlFor="url">URL</label>
       <input
